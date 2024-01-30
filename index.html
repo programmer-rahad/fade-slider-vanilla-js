@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>Basic Slide Show ( 12-01-2019 )</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		body {
+			text-align: center;
+		}
+		#sliders {
+			max-width: 800px;
+			margin: auto;
+			position: relative;
+			height: 400px;
+			margin-top: 4.5rem;
+		}
+		@media(max-width:575.98px) {
+			#sliders {
+				height: 300px;
+			}
+		}
+		#sliders img {
+			position: absolute;
+			left: 0;
+			opacity: 0;
+			transition: .6s; 
+			object-fit: cover; 
+			width: 100%;
+			height: 100%; 
+			border-radius: 5px;
+		} 
+		button {
+			background: orange;
+			border: none;
+			padding: 8px 18px;
+			color: #fff;
+			margin: 20px 2px;
+			cursor: pointer; 
+		}
+		button:hover {
+			background: rosybrown;
+		}
+		button:focus {
+			outline: none;
+		}
+	</style>
+</head>
+<body> 
+
+	<div id="sliders"> 
+		<img src="https://images.unsplash.com/photo-1469521669194-babb45599def" alt="" />
+		<img src="https://images.unsplash.com/photo-1433086966358-54859d0ed716" alt="" />
+		<img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e" alt="" />
+		<img src="https://images.unsplash.com/photo-1473654729523-203e25dfda10" alt="" />
+	</div>
+	<button id="prev">Prev</button> 
+	<button id="next">Next</button>
+	<button id="autoPlay">Auto Play</button>
+	<button id="autoPlayStop">Auto Play Stop</button> 
+	<script>
+		var number = 0;
+		var images = document.images;
+		var autoPlayCondition = true;
+		var stopInterval;
+
+		// Default
+		images[0].style.opacity = 1;
+
+
+		function nextFunction(){
+			
+			for(var i = 0; i < images.length; i++) {
+				images[i].style.opacity = 0;
+			}
+			number++;
+			if(number == images.length) {
+				number = 0;		
+			}
+			images[number].style.opacity = 1;
+			
+		}
+		function prevFunction(){
+			
+			for(var i = 0; i < images.length; i++) {
+				images[i].style.opacity = 0;
+			}
+			number--;
+			if(number < 0) {
+				number = images.length - 1;		
+			}
+			images[number].style.opacity = 1;
+			
+		}
+
+		next.addEventListener('click',nextFunction);
+		prev.addEventListener('click',prevFunction);
+
+		var test;
+
+		autoPlay.addEventListener('click',function() {
+			if(autoPlayCondition) {
+				stopInterval = setInterval(nextFunction,2000);
+			}
+				autoPlayCondition = false;
+		})
+		autoPlayStop.addEventListener('click',function() {
+			clearInterval(stopInterval);
+			autoPlayCondition = true;
+		});
+ 
+	</script>
+</body>
+</html>
